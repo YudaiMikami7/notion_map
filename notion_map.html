@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notion Map Example</title>
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-RhC9XweA+x74tnBp+wrHsp6hqM8l+yH0UMG5OJUW6vI="
+    crossorigin=""
+  />
+  <!-- Leaflet JavaScript -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-oIYKpF1EXCKMO/vpHqMh5s4k2b4efSTQZteAd893rQo="
+    crossorigin=""
+  ></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100vh;
+      width: 100vw;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <script>
+    // Initialize the map
+    const map = L.map('map').setView([35.6812, 139.7671], 5); // Centered on Japan
+
+    // Add a tile layer (OpenStreetMap)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Example marker data. Replace with your own data from Notion DB
+    const locations = [
+      {
+        name: '東京駅',
+        lat: 35.681236,
+        lng: 139.767125,
+        url: 'https://www.notion.so/yourpageid1'
+      },
+      {
+        name: '仙台駅',
+        lat: 38.260805,
+        lng: 140.881411,
+        url: 'https://www.notion.so/yourpageid2'
+      },
+      {
+        name: '大阪駅',
+        lat: 34.702485,
+        lng: 135.495951,
+        url: 'https://www.notion.so/yourpageid3'
+      }
+    ];
+
+    // Add markers to the map
+    locations.forEach((loc) => {
+      const marker = L.marker([loc.lat, loc.lng]).addTo(map);
+      const popupContent = `<strong>${loc.name}</strong><br><a href="${loc.url}" target="_blank">Notionページを開く</a>`;
+      marker.bindPopup(popupContent);
+    });
+  </script>
+</body>
+</html>
